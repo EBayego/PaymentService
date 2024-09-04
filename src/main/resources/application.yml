@@ -1,6 +1,7 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/payment_db
+#url: jdbc:postgresql://localhost:5432/payment_db
+    url: ${DATABASE_URL} # localhost para local, host.docker.internal para el contenedor Docker
     username: postgres
     password: webia_3345
     driver-class-name: org.postgresql.Driver
