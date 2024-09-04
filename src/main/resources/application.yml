@@ -1,0 +1,29 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/payment_db
+    username: postgres
+    password: webia_3345
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+
+  jackson:
+    serialization:
+      INDENT_OUTPUT: true
+
+server:
+  port: 8080
+
+logging:
+  level:
+    org.springframework: INFO
+    com.example.paymentservice: DEBUG
+
+openapi:
+  info:
+    title: Payment Service API
+    version: 1.0.0
+    description: API for managing payments
