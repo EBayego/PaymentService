@@ -7,12 +7,15 @@ public class CreditCard {
     private String number;
     private String maskedNumber;
 
+    public CreditCard() {
+    }
+
     public CreditCard(String number) {
         this.number = number;
         this.maskedNumber = maskNumber(number);
     }
 
-    private String maskNumber(String number) {
+    public String maskNumber(String number) {
         return "****-****-****-" + number.substring(number.length() - 4);
     }
 

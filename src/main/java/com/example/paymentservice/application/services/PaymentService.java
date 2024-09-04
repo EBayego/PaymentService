@@ -12,7 +12,6 @@ import com.example.paymentservice.application.port.PaymentRepository;
 public class PaymentService {
 	private final PaymentRepository paymentRepository;
 
-	@Autowired
     public PaymentService(PaymentRepository paymentRepository) {
         this.paymentRepository = paymentRepository;
     }

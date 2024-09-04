@@ -20,6 +20,19 @@ public class Payment {
     private Double amount;
     private LocalDate paymentDate;
     private String description;
+    
+	public Payment(Long id, CreditCard creditCard, Double amount, LocalDate paymentDate, String description) {
+		super();
+		this.id = id;
+		this.creditCard = creditCard;
+		this.amount = amount;
+		this.paymentDate = paymentDate;
+		this.description = description;
+	}
+	
+	public Payment() {
+	}
+	
 	public Long getId() {
 		return id;
 	}
