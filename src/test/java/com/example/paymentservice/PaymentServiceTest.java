@@ -9,8 +9,10 @@ import com.example.paymentservice.application.port.PaymentRepository;
 import com.example.paymentservice.application.services.PaymentService;
 import com.example.paymentservice.domain.model.CreditCard;
 import com.example.paymentservice.domain.model.Payment;
+import com.example.paymentservice.infrastructure.exception.PaymentDomainException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 import java.time.LocalDate;
@@ -35,13 +37,26 @@ class PaymentServiceTest {
     @Test
     void testRegisterPayment() {
         CreditCard creditCard = new CreditCard("1234567890123456");
-        Payment payment = new Payment(1L, creditCard, 100.0, LocalDate.now(), "Test payment");
+        Payment payment = new Payment(1L, creditCard, 100.0, LocalDate.now(), "Test payment valid");
 
         when(paymentRepository.save(payment)).thenReturn(payment);
 
         Payment result = paymentService.registerPayment(payment);
         assertEquals(payment, result);
         verify(paymentRepository, times(1)).save(payment);
+        
+        Payment payment2 = new Payment(2L, creditCard, 150000.00, LocalDate.now(), "Test payment invalid amount");
+
+        assertThrows(PaymentDomainException.class, () -> {
+            paymentService.registerPayment(payment2);
+        });
+        
+        CreditCard creditCard3 = new CreditCard("1234567890");
+        Payment payment3 = new Payment(3L, creditCard3, 1000.00, LocalDate.now(), "Test payment invalid cd number");
+
+        assertThrows(PaymentDomainException.class, () -> {
+            paymentService.registerPayment(payment3);
+        });
     }
 
     @Test

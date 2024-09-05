@@ -9,6 +9,8 @@ import com.example.paymentservice.application.services.PaymentService;
 import com.example.paymentservice.domain.model.CreditCard;
 import com.example.paymentservice.domain.model.Payment;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/payments")
 public class PaymentController {
@@ -20,7 +22,7 @@ public class PaymentController {
     }
 
     @PostMapping
-    public ResponseEntity<Payment> registerPayment(@RequestBody Payment payment) {
+    public ResponseEntity<Payment> registerPayment(@Valid @RequestBody Payment payment) {
     	Payment savedPayment = paymentService.registerPayment(payment);
         return ResponseEntity.ok(savedPayment);
     }
