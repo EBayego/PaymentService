@@ -7,18 +7,27 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PastOrPresent;
 
 @Entity
 public class Payment {
 	@Id
+	@NotNull(message = "Credit card number cannot be null")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 	
 	@Embedded
     private CreditCard creditCard;
 	
+	@NotNull(message = "Amount cannot be null")
+    @DecimalMin(value = "0.01", message = "Amount must be greater than 0")
     private Double amount;
+	
+	@PastOrPresent(message = "Payment date cannot be in the future")
     private LocalDate paymentDate;
+	
     private String description;
     
 	public Payment(Long id, CreditCard creditCard, Double amount, LocalDate paymentDate, String description) {
