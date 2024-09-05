@@ -1,10 +1,14 @@
 package com.example.paymentservice.domain.model;
 
 import jakarta.persistence.Embeddable;
+import jakarta.validation.constraints.Pattern;
 
 @Embeddable
 public class CreditCard {
+	
+	@Pattern(regexp = "^[0-9]{16}$", message = "Credit card number must be 16 digits")
     private String number;
+	
     private String maskedNumber;
 
     public CreditCard() {
